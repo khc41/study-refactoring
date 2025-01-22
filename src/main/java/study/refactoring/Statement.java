@@ -32,7 +32,7 @@ public class Statement {
         return result;
     }
 
-    private static int amountFor(Performance perf, Play play) {
+    private int amountFor(Performance perf, Play play) {
         int thisAmount;
         switch (play.getType()) {
             case "tragedy": {
