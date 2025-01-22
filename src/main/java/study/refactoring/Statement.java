@@ -6,17 +6,26 @@ import java.util.Locale;
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) {
-        int totalAmount = 0;
+
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
         for (Performance performance : invoice.getPerformances()) {
 
             // 청구 내역을 출력한다.
             result.append(String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), usd(amountFor(performance, plays)), performance.getAudience()));
-            totalAmount += amountFor(performance, plays);
+
         }
-        result.append(String.format("총액: %s\n", usd(totalAmount)));
+
+        result.append(String.format("총액: %s\n", usd(totalAmount(invoice, plays))));
         result.append(String.format("적립 포인트: %s점\n", totalVolumeCredits(invoice, plays)));
         return result.toString();
+    }
+
+    private int totalAmount(Invoice invoice, Plays plays) {
+        int totalAmount = 0;
+        for (Performance performance : invoice.getPerformances()) {
+            totalAmount += amountFor(performance, plays);
+        }
+        return totalAmount;
     }
 
     private int totalVolumeCredits(Invoice invoice, Plays plays) {
