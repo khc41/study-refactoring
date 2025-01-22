@@ -18,7 +18,7 @@ public class CreateStatementData {
         PerformanceCalculator calculator = new PerformanceCalculator(performance, playFor(plays, performance));
         PerformanceData result = new PerformanceData(performance.getPlayID(), performance.getAudience());
         result.setPlay(playFor(plays, performance));
-        result.setAmount(amountFor(result));
+        result.setAmount(calculator.getAmount());
         result.setVolumeCredits(volumeCreditsFor(result));
         return result;
     }
@@ -48,27 +48,7 @@ public class CreateStatementData {
         return plays.getPlay(performance.getPlayID());
     }
 
-    private static int amountFor(PerformanceData performance) {
-        int result;
-        switch (performance.getPlay().getType()) {
-            case "tragedy": {
-                result = 40000;
-                if (performance.getAudience() > 30) {
-                    result += 1000 * (performance.getAudience() - 30);
-                }
-                break;
-            }
-            case "comedy": {
-                result = 30000;
-                if (performance.getAudience() > 20) {
-                    result += 10000 + 500 * (performance.getAudience() - 20);
-                }
-                result += 300 * performance.getAudience();
-            }
-            break;
-            default:
-                throw new Error(String.format("알 수 없는 장르: %s", performance.getPlay().getType()));
-        }
-        return result;
+    private static int amountFor(Performance performance, Plays plays) {
+        return new PerformanceCalculator(performance, playFor(plays, performance)).getAmount();
     }
 }
