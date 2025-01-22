@@ -1,5 +1,7 @@
 package study.refactoring.data;
 
+import study.refactoring.calculate.PerformanceCalculator;
+
 public class CreateStatementData {
 
     public static StatementData createStatementData(Invoice invoice, Plays plays) {
@@ -19,7 +21,7 @@ public class CreateStatementData {
         PerformanceData result = new PerformanceData(performance.getPlayID(), performance.getAudience());
         result.setPlay(playFor(plays, performance));
         result.setAmount(calculator.getAmount());
-        result.setVolumeCredits(volumeCreditsFor(result));
+        result.setVolumeCredits(calculator.getVolumeCredits());
         return result;
     }
 
@@ -35,13 +37,8 @@ public class CreateStatementData {
                 .sum();
     }
 
-    private static int volumeCreditsFor(PerformanceData performance) {
-        int result = 0;
-        result += Math.max(performance.getAudience() - 30, 0);
-        if ("comedy".equals(performance.getPlay().getType())) {
-            result += (int) (double) (performance.getAudience() / 5);
-        }
-        return result;
+    private static int volumeCreditsFor(Performance performance, Plays plays) {
+        return new PerformanceCalculator(performance, playFor(plays, performance)).getVolumeCredits();
     }
 
     private static Play playFor(Plays plays, Performance performance) {

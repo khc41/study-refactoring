@@ -1,16 +1,29 @@
-package study.refactoring.data;
+package study.refactoring.calculate;
+
+import study.refactoring.data.Performance;
+import study.refactoring.data.Play;
 
 public class PerformanceCalculator {
     private Performance performance;
     private Play play;
-    private int amount;
 
     public PerformanceCalculator(Performance performance, Play play) {
         this.performance = performance;
         this.play = play;
     }
 
-    public int getAmount(){
+
+
+    public int getVolumeCredits() {
+        int result = 0;
+        result += Math.max(this.performance.getAudience() - 30, 0);
+        if ("comedy".equals(this.play.getType())) {
+            result += (int) (double) (this.performance.getAudience() / 5);
+        }
+        return result;
+    }
+
+    public int getAmount() {
         int result;
         switch (this.play.getType()) {
             case "tragedy": {
