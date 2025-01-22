@@ -21,6 +21,10 @@ public class Statement {
         return result.toString();
     }
 
+    public String htmlStatement(Invoice invoice, Plays plays) {
+        return renderHtml(createStatementData(invoice, plays));
+    }
+
     private String renderHtml(StatementData data) {
         StringBuilder result = new StringBuilder(String.format("<h1>청구 내역 (고객명: %s)</h1>\n", data.getCustomer()));
         result.append("<table>\n");
