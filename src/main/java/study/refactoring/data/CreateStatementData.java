@@ -1,4 +1,4 @@
-package study.refactoring;
+package study.refactoring.data;
 
 public class CreateStatementData {
 

@@ -1,4 +1,4 @@
-package study.refactoring;
+package study.refactoring.data;
 
 import java.util.Collections;
 import java.util.List;

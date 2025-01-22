@@ -1,4 +1,6 @@
-package study.refactoring;
+package study.refactoring.data;
+
+import study.refactoring.data.PerformanceData;
 
 import java.util.List;
 

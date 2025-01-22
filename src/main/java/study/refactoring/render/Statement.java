@@ -1,9 +1,14 @@
-package study.refactoring;
+package study.refactoring.render;
+
+import study.refactoring.data.Invoice;
+import study.refactoring.data.PerformanceData;
+import study.refactoring.data.Plays;
+import study.refactoring.data.StatementData;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import static study.refactoring.CreateStatementData.createStatementData;
+import static study.refactoring.data.CreateStatementData.createStatementData;
 
 public class Statement {
 

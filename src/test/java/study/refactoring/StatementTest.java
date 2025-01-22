@@ -1,6 +1,11 @@
 package study.refactoring;
 
 import org.junit.jupiter.api.Test;
+import study.refactoring.data.Invoice;
+import study.refactoring.data.Performance;
+import study.refactoring.data.Play;
+import study.refactoring.data.Plays;
+import study.refactoring.render.Statement;
 
 import java.util.HashMap;
 import java.util.List;
