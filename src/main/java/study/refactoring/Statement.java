@@ -16,13 +16,16 @@ public class Statement {
     }
 
     private PerformanceData enrichPerformance(Performance performance, Plays plays) {
-        return new PerformanceData(performance.getPlayID(), performance.getAudience(), playFor(plays, performance));
+        PerformanceData performanceData = new PerformanceData(performance.getPlayID(), performance.getAudience());
+        performanceData.setPlay(playFor(plays, performance));
+        performanceData.setAmount(amountFor(performanceData));
+        return performanceData;
     }
 
     private String renderPlainText(StatementData data) {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", data.getCustomer()));
         for (PerformanceData performance : data.getPerformances()) {
-            result.append(String.format("  %s: %s (%s석)\n", performance.getPlay().getName(), usd(amountFor(performance)), performance.getAudience()));
+            result.append(String.format("  %s: %s (%s석)\n", performance.getPlay().getName(), usd(performance.getAmount()), performance.getAudience()));
         }
         result.append(String.format("총액: %s\n", usd(totalAmount(data))));
         result.append(String.format("적립 포인트: %s점\n", totalVolumeCredits(data)));
@@ -32,7 +35,7 @@ public class Statement {
     private int totalAmount(StatementData data) {
         int result = 0;
         for (PerformanceData performance : data.getPerformances()) {
-            result += amountFor(performance);
+            result += performance.getAmount();
         }
         return result;
     }

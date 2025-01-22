@@ -4,11 +4,19 @@ public class PerformanceData {
     private String playID;
     private int audience;
     private Play play;
+    private int amount;
 
-    public PerformanceData(String playID, int audience, Play play) {
+    public PerformanceData(String playID, int audience) {
         this.playID = playID;
         this.audience = audience;
-        this.play = play;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public String getPlayID() {
