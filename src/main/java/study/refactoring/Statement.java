@@ -8,19 +8,19 @@ public class Statement {
     public String statement(Invoice invoice, Plays plays) {
         int totalAmount = 0;
         int volumeCredits = 0;
-        String result = String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer());
+        StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
         final NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance performance : invoice.getPerformances()) {
             volumeCredits += volumeCreditsFor(plays, performance);
 
             // 청구 내역을 출력한다.
-            result += String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), format.format(amountFor(performance, plays) / 100), performance.getAudience());
+            result.append(String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), format.format(amountFor(performance, plays) / 100), performance.getAudience()));
             totalAmount += amountFor(performance, plays);
         }
-        result += String.format("총액: %s\n", format.format(totalAmount / 100));
-        result += String.format("적립 포인트: %s점\n", volumeCredits);
-        return result;
+        result.append(String.format("총액: %s\n", format.format(totalAmount / 100)));
+        result.append(String.format("적립 포인트: %s점\n", volumeCredits));
+        return result.toString();
     }
 
     private int volumeCreditsFor(Plays plays, Performance performance) {
