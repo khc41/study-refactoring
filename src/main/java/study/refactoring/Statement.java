@@ -16,10 +16,11 @@ public class Statement {
     }
 
     private PerformanceData enrichPerformance(Performance performance, Plays plays) {
-        PerformanceData performanceData = new PerformanceData(performance.getPlayID(), performance.getAudience());
-        performanceData.setPlay(playFor(plays, performance));
-        performanceData.setAmount(amountFor(performanceData));
-        return performanceData;
+        PerformanceData result = new PerformanceData(performance.getPlayID(), performance.getAudience());
+        result.setPlay(playFor(plays, performance));
+        result.setAmount(amountFor(result));
+        result.setVolumeCredits(volumeCreditsFor(result));
+        return result;
     }
 
     private String renderPlainText(StatementData data) {
@@ -43,7 +44,7 @@ public class Statement {
     private int totalVolumeCredits(StatementData data) {
         int result = 0;
         for (PerformanceData performance : data.getPerformances()) {
-            result += volumeCreditsFor(performance);
+            result += performance.getVolumeCredits();
         }
         return result;
     }

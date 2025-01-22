@@ -5,10 +5,19 @@ public class PerformanceData {
     private int audience;
     private Play play;
     private int amount;
+    private int volumeCredits;
 
     public PerformanceData(String playID, int audience) {
         this.playID = playID;
         this.audience = audience;
+    }
+
+    public int getVolumeCredits() {
+        return volumeCredits;
+    }
+
+    public void setVolumeCredits(int volumeCredits) {
+        this.volumeCredits = volumeCredits;
     }
 
     public int getAmount() {
