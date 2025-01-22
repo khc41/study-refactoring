@@ -11,20 +11,20 @@ public class Statement {
         String result = String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer());
         final NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
 
-        for (Performance perf : invoice.getPerformances()) {
-            final Play play = plays.getPlay(perf.getPlayID());
+        for (Performance performance : invoice.getPerformances()) {
+            final Play play = plays.getPlay(performance.getPlayID());
             int thisAmount;
 
-            thisAmount = amountFor(perf, play);
+            thisAmount = amountFor(performance, play);
             // 포인트를 적립한다.
-            volumeCredits += Math.max(perf.getAudience() - 30, 0);
+            volumeCredits += Math.max(performance.getAudience() - 30, 0);
             // 희극 관객 5명마다 추가 포인트를 제공한다.
             if("comedy".equals(play.getType())) {
-                volumeCredits += Math.floor(perf.getAudience() / 5);
+                volumeCredits += Math.floor(performance.getAudience() / 5);
             }
 
             // 청구 내역을 출력한다.
-            result += String.format("  %s: %s (%s석)\n", play.getName(), format.format(thisAmount/100), perf.getAudience());
+            result += String.format("  %s: %s (%s석)\n", play.getName(), format.format(thisAmount/100), performance.getAudience());
             totalAmount += thisAmount;
         }
         result += String.format("총액: %s\n", format.format(totalAmount/100));
