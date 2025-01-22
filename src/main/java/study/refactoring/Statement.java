@@ -10,37 +10,37 @@ public class Statement {
         statementData.setCustomer(invoice.getCustomer());
         statementData.setPerformances(invoice.getPerformances()
                 .stream()
-                .map(this::enrichPerformance)
+                .map(it -> enrichPerformance(it, plays))
                 .toList());
-        return renderPlainText(statementData, plays);
+        return renderPlainText(statementData);
     }
 
-    private Performance enrichPerformance(Performance performance) {
-        return new Performance(performance.getPlayID(), performance.getAudience());
+    private PerformanceData enrichPerformance(Performance performance, Plays plays) {
+        return new PerformanceData(performance.getPlayID(), performance.getAudience(), playFor(plays, performance));
     }
 
-    private String renderPlainText(StatementData data, Plays plays) {
+    private String renderPlainText(StatementData data) {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", data.getCustomer()));
-        for (Performance performance : data.getPerformances()) {
-            result.append(String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), usd(amountFor(performance, plays)), performance.getAudience()));
+        for (PerformanceData performance : data.getPerformances()) {
+            result.append(String.format("  %s: %s (%s석)\n", performance.getPlay().getName(), usd(amountFor(performance)), performance.getAudience()));
         }
-        result.append(String.format("총액: %s\n", usd(totalAmount(data, plays))));
-        result.append(String.format("적립 포인트: %s점\n", totalVolumeCredits(data, plays)));
+        result.append(String.format("총액: %s\n", usd(totalAmount(data))));
+        result.append(String.format("적립 포인트: %s점\n", totalVolumeCredits(data)));
         return result.toString();
     }
 
-    private int totalAmount(StatementData data, Plays plays) {
+    private int totalAmount(StatementData data) {
         int result = 0;
-        for (Performance performance : data.getPerformances()) {
-            result += amountFor(performance, plays);
+        for (PerformanceData performance : data.getPerformances()) {
+            result += amountFor(performance);
         }
         return result;
     }
 
-    private int totalVolumeCredits(StatementData data, Plays plays) {
+    private int totalVolumeCredits(StatementData data) {
         int result = 0;
-        for (Performance performance : data.getPerformances()) {
-            result += volumeCreditsFor(plays, performance);
+        for (PerformanceData performance : data.getPerformances()) {
+            result += volumeCreditsFor(performance);
         }
         return result;
     }
@@ -49,10 +49,10 @@ public class Statement {
         return NumberFormat.getCurrencyInstance(Locale.US).format(number / 100);
     }
 
-    private int volumeCreditsFor(Plays plays, Performance performance) {
+    private int volumeCreditsFor(PerformanceData performance) {
         int result = 0;
         result += Math.max(performance.getAudience() - 30, 0);
-        if ("comedy".equals(playFor(plays, performance).getType())) {
+        if ("comedy".equals(performance.getPlay().getType())) {
             result += (int) (double) (performance.getAudience() / 5);
         }
         return result;
@@ -62,9 +62,9 @@ public class Statement {
         return plays.getPlay(performance.getPlayID());
     }
 
-    private int amountFor(Performance performance, Plays plays) {
+    private int amountFor(PerformanceData performance) {
         int result;
-        switch (playFor(plays, performance).getType()) {
+        switch (performance.getPlay().getType()) {
             case "tragedy": {
                 result = 40000;
                 if (performance.getAudience() > 30) {
@@ -81,7 +81,7 @@ public class Statement {
             }
             break;
             default:
-                throw new Error(String.format("알 수 없는 장르: %s", playFor(plays, performance).getType()));
+                throw new Error(String.format("알 수 없는 장르: %s", performance.getPlay().getType()));
         }
         return result;
     }

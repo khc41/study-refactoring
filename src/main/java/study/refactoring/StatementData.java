@@ -4,13 +4,13 @@ import java.util.List;
 
 public class StatementData {
     private String customer;
-    private List<Performance> performances;
+    private List<PerformanceData> performances;
 
-    public List<Performance> getPerformances() {
+    public List<PerformanceData> getPerformances() {
         return performances;
     }
 
-    public void setPerformances(List<Performance> performances) {
+    public void setPerformances(List<PerformanceData> performances) {
         this.performances = performances;
     }
 
