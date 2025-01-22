@@ -32,27 +32,27 @@ public class Statement {
         return result;
     }
 
-    private int amountFor(Performance perf, Play play) {
-        int thisAmount;
+    private int amountFor(Performance performance, Play play) {
+        int result;
         switch (play.getType()) {
             case "tragedy": {
-                thisAmount = 40000;
-                if (perf.getAudience() > 30) {
-                    thisAmount += 1000 * (perf.getAudience() - 30);
+                result = 40000;
+                if (performance.getAudience() > 30) {
+                    result += 1000 * (performance.getAudience() - 30);
                 }
                 break;
             }
             case "comedy": {
-                thisAmount = 30000;
-                if (perf.getAudience() > 20) {
-                    thisAmount += 10000 + 500 * (perf.getAudience() - 20);
+                result = 30000;
+                if (performance.getAudience() > 20) {
+                    result += 10000 + 500 * (performance.getAudience() - 20);
                 }
-                thisAmount += 300 * perf.getAudience();
+                result += 300 * performance.getAudience();
             }
             break;
             default:
                 throw new Error(String.format("알 수 없는 장르: %s", play.getType()));
         }
-        return thisAmount;
+        return result;
     }
 }
