@@ -12,20 +12,23 @@ public class Statement {
         final NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance performance : invoice.getPerformances()) {
-
-            // 포인트를 적립한다.
-            volumeCredits += Math.max(performance.getAudience() - 30, 0);
-            // 희극 관객 5명마다 추가 포인트를 제공한다.
-            if("comedy".equals(playFor(plays, performance).getType())) {
-                volumeCredits += Math.floor(performance.getAudience() / 5);
-            }
+            volumeCredits += volumeCreditsFor(plays, performance);
 
             // 청구 내역을 출력한다.
-            result += String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), format.format(amountFor(performance, plays) /100), performance.getAudience());
+            result += String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), format.format(amountFor(performance, plays) / 100), performance.getAudience());
             totalAmount += amountFor(performance, plays);
         }
-        result += String.format("총액: %s\n", format.format(totalAmount/100));
+        result += String.format("총액: %s\n", format.format(totalAmount / 100));
         result += String.format("적립 포인트: %s점\n", volumeCredits);
+        return result;
+    }
+
+    private int volumeCreditsFor(Plays plays, Performance performance) {
+        int result = 0;
+        result += Math.max(performance.getAudience() - 30, 0);
+        if ("comedy".equals(playFor(plays, performance).getType())) {
+            result += (int) (double) (performance.getAudience() / 5);
+        }
         return result;
     }
 
