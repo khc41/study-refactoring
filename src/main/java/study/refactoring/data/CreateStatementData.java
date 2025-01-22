@@ -15,7 +15,7 @@ public class CreateStatementData {
     }
 
     private static PerformanceData enrichPerformance(Performance performance, Plays plays) {
-        PerformanceCalculator calculator = new PerformanceCalculator(performance);
+        PerformanceCalculator calculator = new PerformanceCalculator(performance, playFor(plays, performance));
         PerformanceData result = new PerformanceData(performance.getPlayID(), performance.getAudience());
         result.setPlay(playFor(plays, performance));
         result.setAmount(amountFor(result));
