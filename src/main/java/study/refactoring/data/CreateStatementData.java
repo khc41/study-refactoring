@@ -2,6 +2,8 @@ package study.refactoring.data;
 
 import study.refactoring.calculate.PerformanceCalculator;
 
+import static study.refactoring.calculate.PerformanceCalculator.createPerformanceCalculator;
+
 public class CreateStatementData {
 
     public static StatementData createStatementData(Invoice invoice, Plays plays) {
@@ -17,7 +19,7 @@ public class CreateStatementData {
     }
 
     private static PerformanceData enrichPerformance(Performance performance, Plays plays) {
-        PerformanceCalculator calculator = new PerformanceCalculator(performance, playFor(plays, performance));
+        PerformanceCalculator calculator = createPerformanceCalculator(performance, playFor(plays, performance));
         PerformanceData result = new PerformanceData(performance.getPlayID(), performance.getAudience());
         result.setPlay(playFor(plays, performance));
         result.setAmount(calculator.getAmount());
@@ -37,15 +39,7 @@ public class CreateStatementData {
                 .sum();
     }
 
-    private static int volumeCreditsFor(Performance performance, Plays plays) {
-        return new PerformanceCalculator(performance, playFor(plays, performance)).getVolumeCredits();
-    }
-
     private static Play playFor(Plays plays, Performance performance) {
         return plays.getPlay(performance.getPlayID());
-    }
-
-    private static int amountFor(Performance performance, Plays plays) {
-        return new PerformanceCalculator(performance, playFor(plays, performance)).getAmount();
     }
 }

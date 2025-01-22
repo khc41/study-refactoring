@@ -4,15 +4,15 @@ import study.refactoring.data.Performance;
 import study.refactoring.data.Play;
 
 public class PerformanceCalculator {
-    private Performance performance;
-    private Play play;
+    protected Performance performance;
+    protected Play play;
 
     public PerformanceCalculator(Performance performance, Play play) {
         this.performance = performance;
         this.play = play;
     }
 
-    public PerformanceCalculator createPerformanceCalculator(Performance performance, Play play) {
+    public static PerformanceCalculator createPerformanceCalculator(Performance performance, Play play) {
         switch (play.getType()) {
             case "tragedy": {
                 return new TragedyCalculator(performance, play);
@@ -39,11 +39,7 @@ public class PerformanceCalculator {
         int result;
         switch (this.play.getType()) {
             case "tragedy": {
-                result = 40000;
-                if (this.performance.getAudience() > 30) {
-                    result += 1000 * (this.performance.getAudience() - 30);
-                }
-                break;
+                throw new Error("오류 발생");
             }
             case "comedy": {
                 result = 30000;
