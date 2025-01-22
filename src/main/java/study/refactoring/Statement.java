@@ -6,6 +6,10 @@ import java.util.Locale;
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) {
+        return renderPlainText(createStatementData(invoice, plays));
+    }
+
+    private StatementData createStatementData(Invoice invoice, Plays plays) {
         StatementData statementData = new StatementData();
         statementData.setCustomer(invoice.getCustomer());
         statementData.setPerformances(invoice.getPerformances()
@@ -14,7 +18,7 @@ public class Statement {
                 .toList());
         statementData.setTotalAmount(totalAmount(statementData));
         statementData.setTotalVolumeCredits(totalVolumeCredits(statementData));
-        return renderPlainText(statementData);
+        return statementData;
     }
 
     private PerformanceData enrichPerformance(Performance performance, Plays plays) {
