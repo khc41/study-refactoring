@@ -3,30 +3,12 @@ package study.refactoring;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import static study.refactoring.CreateStatementData.createStatementData;
+
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) {
         return renderPlainText(createStatementData(invoice, plays));
-    }
-
-    private StatementData createStatementData(Invoice invoice, Plays plays) {
-        StatementData statementData = new StatementData();
-        statementData.setCustomer(invoice.getCustomer());
-        statementData.setPerformances(invoice.getPerformances()
-                .stream()
-                .map(it -> enrichPerformance(it, plays))
-                .toList());
-        statementData.setTotalAmount(totalAmount(statementData));
-        statementData.setTotalVolumeCredits(totalVolumeCredits(statementData));
-        return statementData;
-    }
-
-    private PerformanceData enrichPerformance(Performance performance, Plays plays) {
-        PerformanceData result = new PerformanceData(performance.getPlayID(), performance.getAudience());
-        result.setPlay(playFor(plays, performance));
-        result.setAmount(amountFor(result));
-        result.setVolumeCredits(volumeCreditsFor(result));
-        return result;
     }
 
     private String renderPlainText(StatementData data) {
@@ -39,56 +21,8 @@ public class Statement {
         return result.toString();
     }
 
-    private int totalAmount(StatementData data) {
-        return data.getPerformances().stream()
-                .mapToInt(PerformanceData::getAmount)
-                .sum();
-    }
-
-    private int totalVolumeCredits(StatementData data) {
-        return data.getPerformances().stream()
-                .mapToInt(PerformanceData::getVolumeCredits)
-                .sum();
-    }
-
     private String usd(int number) {
         return NumberFormat.getCurrencyInstance(Locale.US).format(number / 100);
     }
 
-    private int volumeCreditsFor(PerformanceData performance) {
-        int result = 0;
-        result += Math.max(performance.getAudience() - 30, 0);
-        if ("comedy".equals(performance.getPlay().getType())) {
-            result += (int) (double) (performance.getAudience() / 5);
-        }
-        return result;
-    }
-
-    private Play playFor(Plays plays, Performance performance) {
-        return plays.getPlay(performance.getPlayID());
-    }
-
-    private int amountFor(PerformanceData performance) {
-        int result;
-        switch (performance.getPlay().getType()) {
-            case "tragedy": {
-                result = 40000;
-                if (performance.getAudience() > 30) {
-                    result += 1000 * (performance.getAudience() - 30);
-                }
-                break;
-            }
-            case "comedy": {
-                result = 30000;
-                if (performance.getAudience() > 20) {
-                    result += 10000 + 500 * (performance.getAudience() - 20);
-                }
-                result += 300 * performance.getAudience();
-            }
-            break;
-            default:
-                throw new Error(String.format("알 수 없는 장르: %s", performance.getPlay().getType()));
-        }
-        return result;
-    }
 }
