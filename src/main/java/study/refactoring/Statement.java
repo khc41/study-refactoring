@@ -8,8 +8,15 @@ public class Statement {
     public String statement(Invoice invoice, Plays plays) {
         StatementData statementData = new StatementData();
         statementData.setCustomer(invoice.getCustomer());
-        statementData.setPerformances(invoice.getPerformances());
+        statementData.setPerformances(invoice.getPerformances()
+                .stream()
+                .map(this::enrichPerformance)
+                .toList());
         return renderPlainText(statementData, plays);
+    }
+
+    private Performance enrichPerformance(Performance performance) {
+        return new Performance(performance.getPlayID(), performance.getAudience());
     }
 
     private String renderPlainText(StatementData data, Plays plays) {
