@@ -12,6 +12,8 @@ public class Statement {
                 .stream()
                 .map(it -> enrichPerformance(it, plays))
                 .toList());
+        statementData.setTotalAmount(totalAmount(statementData));
+        statementData.setTotalVolumeCredits(totalVolumeCredits(statementData));
         return renderPlainText(statementData);
     }
 
@@ -28,8 +30,8 @@ public class Statement {
         for (PerformanceData performance : data.getPerformances()) {
             result.append(String.format("  %s: %s (%s석)\n", performance.getPlay().getName(), usd(performance.getAmount()), performance.getAudience()));
         }
-        result.append(String.format("총액: %s\n", usd(totalAmount(data))));
-        result.append(String.format("적립 포인트: %s점\n", totalVolumeCredits(data)));
+        result.append(String.format("총액: %s\n", usd(data.getTotalAmount())));
+        result.append(String.format("적립 포인트: %s점\n", data.getTotalVolumeCredits()));
         return result.toString();
     }
 
