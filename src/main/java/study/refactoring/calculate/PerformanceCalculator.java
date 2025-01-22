@@ -12,7 +12,19 @@ public class PerformanceCalculator {
         this.play = play;
     }
 
-
+    public PerformanceCalculator createPerformanceCalculator(Performance performance, Play play) {
+        switch (play.getType()) {
+            case "tragedy": {
+                return new TragedyCalculator(performance, play);
+            }
+            case "comedy": {
+                return new ComedyCalculator(performance, play);
+            }
+            default: {
+                throw new Error(String.format("알 수 없는 장르: %s", play.getType()));
+            }
+        }
+    }
 
     public int getVolumeCredits() {
         int result = 0;
