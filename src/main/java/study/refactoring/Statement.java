@@ -8,30 +8,31 @@ public class Statement {
     public String statement(Invoice invoice, Plays plays) {
         StatementData statementData = new StatementData();
         statementData.setCustomer(invoice.getCustomer());
-        return renderPlainText(statementData, invoice, plays);
+        statementData.setPerformances(invoice.getPerformances());
+        return renderPlainText(statementData, plays);
     }
 
-    private String renderPlainText(StatementData data, Invoice invoice, Plays plays) {
+    private String renderPlainText(StatementData data, Plays plays) {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", data.getCustomer()));
-        for (Performance performance : invoice.getPerformances()) {
+        for (Performance performance : data.getPerformances()) {
             result.append(String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), usd(amountFor(performance, plays)), performance.getAudience()));
         }
-        result.append(String.format("총액: %s\n", usd(totalAmount(invoice, plays))));
-        result.append(String.format("적립 포인트: %s점\n", totalVolumeCredits(invoice, plays)));
+        result.append(String.format("총액: %s\n", usd(totalAmount(data, plays))));
+        result.append(String.format("적립 포인트: %s점\n", totalVolumeCredits(data, plays)));
         return result.toString();
     }
 
-    private int totalAmount(Invoice invoice, Plays plays) {
+    private int totalAmount(StatementData data, Plays plays) {
         int result = 0;
-        for (Performance performance : invoice.getPerformances()) {
+        for (Performance performance : data.getPerformances()) {
             result += amountFor(performance, plays);
         }
         return result;
     }
 
-    private int totalVolumeCredits(Invoice invoice, Plays plays) {
+    private int totalVolumeCredits(StatementData data, Plays plays) {
         int result = 0;
-        for (Performance performance : invoice.getPerformances()) {
+        for (Performance performance : data.getPerformances()) {
             result += volumeCreditsFor(plays, performance);
         }
         return result;
