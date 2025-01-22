@@ -12,29 +12,30 @@ public class Statement {
         final NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance performance : invoice.getPerformances()) {
-            final Play play = plays.getPlay(performance.getPlayID());
-            int thisAmount;
 
-            thisAmount = amountFor(performance, play);
             // 포인트를 적립한다.
             volumeCredits += Math.max(performance.getAudience() - 30, 0);
             // 희극 관객 5명마다 추가 포인트를 제공한다.
-            if("comedy".equals(play.getType())) {
+            if("comedy".equals(playFor(plays, performance).getType())) {
                 volumeCredits += Math.floor(performance.getAudience() / 5);
             }
 
             // 청구 내역을 출력한다.
-            result += String.format("  %s: %s (%s석)\n", play.getName(), format.format(thisAmount/100), performance.getAudience());
-            totalAmount += thisAmount;
+            result += String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), format.format(amountFor(performance, plays) /100), performance.getAudience());
+            totalAmount += amountFor(performance, plays);
         }
         result += String.format("총액: %s\n", format.format(totalAmount/100));
         result += String.format("적립 포인트: %s점\n", volumeCredits);
         return result;
     }
 
-    private int amountFor(Performance performance, Play play) {
+    private Play playFor(Plays plays, Performance performance) {
+        return plays.getPlay(performance.getPlayID());
+    }
+
+    private int amountFor(Performance performance, Plays plays) {
         int result;
-        switch (play.getType()) {
+        switch (playFor(plays, performance).getType()) {
             case "tragedy": {
                 result = 40000;
                 if (performance.getAudience() > 30) {
@@ -51,7 +52,7 @@ public class Statement {
             }
             break;
             default:
-                throw new Error(String.format("알 수 없는 장르: %s", play.getType()));
+                throw new Error(String.format("알 수 없는 장르: %s", playFor(plays, performance).getType()));
         }
         return result;
     }
