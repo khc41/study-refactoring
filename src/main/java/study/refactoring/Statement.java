@@ -6,11 +6,13 @@ import java.util.Locale;
 public class Statement {
 
     public String statement(Invoice invoice, Plays plays) {
-        return renderPlainText(invoice, plays);
+        StatementData statementData = new StatementData();
+        statementData.setCustomer(invoice.getCustomer());
+        return renderPlainText(statementData, invoice, plays);
     }
 
-    private String renderPlainText(Invoice invoice, Plays plays) {
-        StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
+    private String renderPlainText(StatementData data, Invoice invoice, Plays plays) {
+        StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", data.getCustomer()));
         for (Performance performance : invoice.getPerformances()) {
             result.append(String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), usd(amountFor(performance, plays)), performance.getAudience()));
         }
