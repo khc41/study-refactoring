@@ -9,18 +9,21 @@ public class Statement {
         int totalAmount = 0;
         int volumeCredits = 0;
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
-        final NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Performance performance : invoice.getPerformances()) {
             volumeCredits += volumeCreditsFor(plays, performance);
 
             // 청구 내역을 출력한다.
-            result.append(String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), format.format(amountFor(performance, plays) / 100), performance.getAudience()));
+            result.append(String.format("  %s: %s (%s석)\n", playFor(plays, performance).getName(), usd(amountFor(performance, plays)), performance.getAudience()));
             totalAmount += amountFor(performance, plays);
         }
-        result.append(String.format("총액: %s\n", format.format(totalAmount / 100)));
+        result.append(String.format("총액: %s\n", usd(totalAmount)));
         result.append(String.format("적립 포인트: %s점\n", volumeCredits));
         return result.toString();
+    }
+
+    private String usd(int number) {
+        return NumberFormat.getCurrencyInstance(Locale.US).format(number / 100);
     }
 
     private int volumeCreditsFor(Plays plays, Performance performance) {
