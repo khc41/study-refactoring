@@ -39,7 +39,7 @@ public class Statement {
             result.append(String.format("<td>%s</td></tr>\n", usd(performance.getAmount())));
         }
         result.append("</table>\n");
-        result.append(String.format("<p>총액: <em>%s</em>점</p>\n", data.getTotalAmount()));
+        result.append(String.format("<p>총액: <em>%s</em>점</p>\n", usd(data.getTotalAmount())));
         result.append(String.format("<p>적립 포인트: <em>%s</em>점</p>\n", data.getTotalVolumeCredits()));
         return result.toString();
     }
