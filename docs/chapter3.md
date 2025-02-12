@@ -1,6 +1,6 @@
-### 기이한 이름
+## 기이한 이름
 - 함수, 모듈, 변수, 클래스 등은 그 이름만 보고도 각각이 무슨 일을 하고 어떻게 사용해야 하는지 명확히 알 수 있도록 해야한다.
-#### before
+### before
 ```java
 class P {
     int d; // discount
@@ -16,7 +16,7 @@ class P {
     }
 }
 ```
-#### after
+### after
 ```java
 class Product {
     int discount;
@@ -33,9 +33,9 @@ class Product {
 }
 ```
 
-### 중복 코드
+## 중복 코드
 - 똑같은 코드 구조가 여러 곳에서 반복된다면 하나로 통합하여 더 나은 프로그램을 만들 수 있다.
-#### before
+### before
 ```java
 class Order {
     int quantity;
@@ -57,7 +57,7 @@ class Order {
     }
 }
 ```
-#### after
+### after
 ```java
 class Order {
     int quantity;
@@ -78,10 +78,10 @@ class Order {
 }
 ```
 
-### 긴 함수
+## 긴 함수
 - 함수를 짧게 구성하면 코드를 이해하고, 공유하고, 선택하기 쉬워진다.
 - 주석을 달아야 할 만한 부분을 무조건 함수로 만든다.
-#### before
+### before
 ```java
 class ReportGenerator {
     void generateReport(List<Order> orders) {
@@ -103,7 +103,7 @@ class ReportGenerator {
     }
 }
 ```
-#### after
+### after
 ```java
 class ReportGenerator {
     void generateReport(List<Order> orders) {
@@ -139,11 +139,11 @@ class ReportGenerator {
 }
 ```
 
-### 긴 매개변수 목록
+## 긴 매개변수 목록
 - 매개변수 목록이 길어지면 그 자체로 이해하기 어려울 때가 많다.
 - 클래스는 매개변수 목록을 줄이는 데 효과적인 수단이다.
 
-#### before
+### before
 ```java
 class OrderProcessor {
     void processOrder(String productName, int quantity, double price, String customerName, String address, String phoneNumber) {
@@ -157,7 +157,7 @@ class OrderProcessor {
     }
 }
 ```
-#### after
+### after
 ```java
 class Order {
     String productName;
@@ -198,9 +198,9 @@ class OrderProcessor {
 }
 ```
 
-### 전역 데이터
+## 전역 데이터
 - 버그가 발생해도 원인을 찾아내기 어렵다.
-#### before
+### before
 ```java
 class Config {
     static String databaseUrl = "jdbc:mysql://localhost:3306/mydb";
@@ -212,7 +212,7 @@ class DatabaseConnector {
     }
 }
 ```
-#### after
+### after
 ```java
 class Config {
     private String databaseUrl;
@@ -239,9 +239,9 @@ class DatabaseConnector {
 }
 ```
 
-### 가변 데이터
+## 가변 데이터
 - 코드의 다른 곳에서는 다른 값을 기대한다는 사실을 인식하지 못한 채 수정해버리면 프로그램이 오작동한다.
-#### before
+### before
 ```java
 class Order {
     int quantity;
@@ -266,7 +266,7 @@ public class Main {
     }
 }
 ```
-#### after
+### after
 ```java
 class Order {
     private final int quantity;
@@ -294,10 +294,10 @@ public class Main {
     }
 }
 ```
-### 뒤엉킨 변경
+## 뒤엉킨 변경
 - 단일 책임 원칙이 제대로 지켜지지 않을 때 나타난다.
 - 즉, 하나의 모듈이 서로 다른 이유들로 인해 여러 가지 방식으로 변경되는 일이 많을 때 발생한다.
-#### before
+### before
 ```java
 class UserProfile {
     String username;
@@ -325,7 +325,7 @@ class UserProfile {
     }
 }
 ```
-#### after
+### after
 ```java
 class UserProfile {
     private String username;
@@ -369,11 +369,11 @@ class EmailService {
 }
 ```
 
-### 산탄총 수술
+## 산탄총 수술
 - 코드를 변경할 때마다 자잘하게 수정해야 하는 클래스가 많을 때 나타난다.
 - 변경할 부분이 코드 전반에 퍼져 있다면 찾기도 어렵고 꼭 수정해야 할 곳을 지나치기 쉽다.
 
-#### before
+### before
 ```java
 class User {
     String username;
@@ -421,7 +421,7 @@ class AddressService {
     }
 }
 ```
-#### after
+### after
 ```java
 class User {
     private String username;
@@ -495,9 +495,9 @@ class NotificationService {
 }
 ```
 
-### 기능 편애
+## 기능 편애
 - 프로그램을 모듈화할 때는 코드를 여러 영역으로 나눈 뒤 영역 안에서 이뤄지는 상호작용은 최대한 늘리고 영역 사이에서 이뤄지는 상호작용은 최소로 줄이는 데 주력한다.
-#### before
+### before
 ```java
 class Address {
     String street;
@@ -527,7 +527,7 @@ class Order {
     }
 }
 ```
-#### after
+### after
 ```java
 class Address {
     private String street;
@@ -558,9 +558,9 @@ class Order {
 }
 ```
 
-### 데이터 뭉치
+## 데이터 뭉치
 - 데이터 항목 서너 개가 여러곳에 함께 뭉쳐 다니면 클래스를 새로 만들어줘야한다.
-#### before
+### before
 ```java
 class Order {
     String customerName;
@@ -587,7 +587,7 @@ class Order {
 }
 ```
 
-#### after
+### after
 ```java
 class Customer {
     private String name;
@@ -634,9 +634,9 @@ class Order {
 }
 ```
 
-### 기본형 집착
+## 기본형 집착
 - 자신에게 주어진 문제에 딱 맞는 기초 타입을 직접 정의하지 않아 나타난다.
-#### before
+### before
 ```java
 class User {
     String name;
@@ -658,7 +658,7 @@ class User {
     }
 }
 ```
-#### after
+### after
 ```java
 class Email {
     private final String value;
@@ -708,10 +708,10 @@ class User {
     }
 }
 ```
-### 반복되는 switch 문
+## 반복되는 switch 문
 - 중복된 switch 문이 문제가 되는 이유는 조건절을 하나 추가할 때마다 다른 switch 문들도 모두 찾아서 함께 수정해야 하기 때문이다.
 - 다형성은 반복된 switch 문을 해결해준다.
-#### before
+### before
 ```java
 class Employee {
     String type;
@@ -747,7 +747,7 @@ class Employee {
     }
 }
 ```
-#### after
+### after
 ```java
 abstract class Employee {
     abstract double calculateBonus(double salary);
@@ -790,9 +790,9 @@ class Intern extends Employee {
     }
 }
 ```
-### 반복문
+## 반복문
 - 일급 함수를 지원하는 언어가 많아져서 반복문을 제거할 수 있게 됐다.
-#### before
+### before
 ```java
 import java.util.List;
 
@@ -822,7 +822,7 @@ public class Main {
     }
 }
 ```
-#### after
+### after
 ```java
 import java.util.List;
 
@@ -851,9 +851,9 @@ public class Main {
     }
 }
 ```
-### 성의 없는 요소
+## 성의 없는 요소
 - 본문 코드를 그대로 쓰는 것과 진배없는 함수도 있고, 실질적으로 메서드가 하나뿐인 클래스도 있다.
-#### before
+### before
 ```java
 class User {
     private String name;
@@ -879,7 +879,7 @@ class UserService {
     }
 }
 ```
-#### after
+### after
 ```java
 class User {
     private String name;
@@ -900,10 +900,10 @@ class User {
 }
 ```
 
-### 추측성 일반화
+## 추측성 일반화
 - '나중에 필요할 거야' 라는 생각으로 당장은 필요 없는 모든 종류의 후킹 포인트와 특이 케이스 처리 로직을 작성해둔 코드에서 나타난다.
 - 테스트 코드 말고는 사용하는 곳이 없는 함수나 클래스에서 흔히 볼 수 있다.
-#### before
+### before
 ```java
 // 나중에 다양한 타입을 지원할 거라며 만든 Generic Repository (하지만 현재 User만 사용)
 class Repository<T> {
@@ -941,7 +941,7 @@ public class Main {
     }
 }
 ```
-#### after
+### after
 ```java
 class UserRepository {
     void save(User user) {
@@ -978,10 +978,10 @@ public class Main {
 }
 ```
 
-### 임시 필드
+## 임시 필드
 - 특정 상황에서만 값이 설정되는 필드를 가진 클래스도 있다.
 - 코드를 이해하기 어려워진다.
-#### before
+### before
 ```java
 class Order {
     private String product;
@@ -1017,7 +1017,7 @@ class Order {
     }
 }
 ```
-#### after
+### after
 ```java
 class Order {
     protected String product;
@@ -1062,9 +1062,9 @@ class DiscountedOrder extends Order {
 }
 ```
 
-### 메시지 체인
+## 메시지 체인
 - 클라이언트가 한 객체를 통해 다른 객체를 얻은 뒤 방금 얻은 객체에 또 다른 객체를 요청하는 식으로, 다른 객체를 요청하는 작업이 연쇄적으로 이어지는 코드를 말한다.
-#### before
+### before
 ```java
 class Address {
     private String city;
@@ -1113,7 +1113,7 @@ public class Main {
     }
 }
 ```
-#### after
+### after
 ```java
 class Address {
     private String city;
@@ -1163,9 +1163,9 @@ public class Main {
     }
 }
 ```
-### 중개자
+## 중개자
 - 클래스가 제공하는 메서드 중 일정 부분 이상이 다른 클래스에 구현을 위임하고 있다.
-#### before
+### before
 ```java
 class Address {
     private String city;
@@ -1219,7 +1219,7 @@ public class Main {
     }
 }
 ```
-#### after
+### after
 ```java
 class Address {
     private String city;
@@ -1269,9 +1269,9 @@ public class Main {
 }
 ```
 
-### 내부자 거래
+## 내부자 거래
 - 어려 모듈이 같은 관심사를 공유한다면 공통 부분을 정식으로 처리하는 제3의 모듈을 새로 만들거나 위임 숨기기를 이용하여 다른 모듈이 중간자 역할을 하게 만든다.
-#### before
+### before
 ```java
 class Address {
     private String city;
@@ -1329,7 +1329,7 @@ public class Main {
     }
 }
 ```
-#### after
+### after
 ```java
 class Address {
     private String city;
@@ -1382,10 +1382,10 @@ public class Main {
     }
 }
 ```
-### 거대한 클래스
+## 거대한 클래스
 - 한 클래스가 너무 많은 일을 하려다 보면 필드 수가 상당히 늘어난다.
 - 클래스에 필드가 너무 많으면 중복 코드가 생기기 쉽다.
-#### before
+### before
 ```java
 class Employee {
     private String name;
@@ -1411,7 +1411,7 @@ class Employee {
     }
 }
 ```
-#### after
+### after
 ```java
 class ContactInfo {
     private String address;
@@ -1451,10 +1451,10 @@ class Employee {
 }
 ```
 
-### 서로 다른 인터페이스의 대안 클래스들
+## 서로 다른 인터페이스의 대안 클래스들
 - 클래스를 사용할 때의 큰 장점은 필요에 따라 언제든 다른 클래스로 교체할 수 있다는 것이다.
 - 단, 교체하려면 인터페이스가 같아야 한다.
-#### before
+### before
 ```java
 class PayPalPayment {
     void sendPayment(double amount) {
@@ -1486,7 +1486,7 @@ class PaymentProcessor {
     }
 }
 ```
-#### after
+### after
 ```java
 interface PaymentMethod {
     void pay(double amount);
@@ -1517,10 +1517,10 @@ class PaymentProcessor {
 }
 ```
 
-### 데이터 클래스
+## 데이터 클래스
 - 데이터 클래스란 데이터 필드와 게터/세터 메서드로만 구성된 클래스를 말한다.
 - 필요한 동작이 엉뚱한 곳에 정의돼 있다는 신호일 수 있다.
-#### before
+### before
 ```java
 class User {
     private String name;
@@ -1540,7 +1540,7 @@ class User {
     }
 }
 ```
-#### after
+### after
 ```java
 class User {
     private String name;
@@ -1572,10 +1572,10 @@ class User {
 }
 ```
 
-### 상속 포기
+## 상속 포기
 - 서브클래스 중 부모의 메서드를 원치 않거나 필요 없을 때 나타난다.
 - 같은 계충에 서브클래스를 하나 새로 만들고, 메서드 내리기와 필드 내리기를 활용해서 물려받지 않을 부모 코드를 모조리 새로 만든 서브클래스로 넘긴다.
-#### before
+### before
 ```java
 class Employee {
     String name;
@@ -1606,7 +1606,7 @@ class Intern extends Employee {
     }
 }
 ```
-#### after
+### after
 ```java
 class Worker {
     String name;
@@ -1639,10 +1639,10 @@ class Intern extends Worker {
 }
 ```
 
-### 주석
+## 주석
 - 주석이 장황하게 달린 원인이 코드를 잘못 작성했기 때문인 경우가 의외로 많다.
 - 주석을 남겨야겠다는 생각이 들면, 가장 먼저 주석이 필요 없는 코드로 리팩터링해본다.
-#### before
+### before
 ```java
 class Order {
     private double price;
@@ -1663,7 +1663,7 @@ class Order {
     }
 }
 ```
-#### after
+### after
 ```java
 class Order {
     private double price;
