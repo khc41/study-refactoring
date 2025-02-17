@@ -29,6 +29,13 @@ class ProvinceTest {
         assertThat(asia.getProfit()).isEqualTo(230);
     }
 
+    @Test
+    void testChangeProduction() {
+        asia.getProducers().getFirst().setProduction("20");
+        assertThat(asia.getShortfall()).isEqualTo(-6);
+        assertThat(asia.getProfit()).isEqualTo(292);
+    }
+
     private Map<String, Object> sampleProvinceData() {
         Map<String, Object> data = new HashMap<>();
         data.put("name", "Asia");
