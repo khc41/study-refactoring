@@ -1,14 +1,14 @@
-package study.refactoring.render;
+package study.refactoring.ch1.render;
 
-import study.refactoring.data.Invoice;
-import study.refactoring.data.PerformanceData;
-import study.refactoring.data.Plays;
-import study.refactoring.data.StatementData;
+import study.refactoring.ch1.data.Invoice;
+import study.refactoring.ch1.data.PerformanceData;
+import study.refactoring.ch1.data.Plays;
+import study.refactoring.ch1.data.StatementData;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import static study.refactoring.data.CreateStatementData.createStatementData;
+import static study.refactoring.ch1.data.CreateStatementData.createStatementData;
 
 public class Statement {
 

@@ -1,7 +1,7 @@
-package study.refactoring.calculate;
+package study.refactoring.ch1.calculate;
 
-import study.refactoring.data.Performance;
-import study.refactoring.data.Play;
+import study.refactoring.ch1.data.Performance;
+import study.refactoring.ch1.data.Play;
 
 public class ComedyCalculator extends PerformanceCalculator {
     public ComedyCalculator(Performance performance, Play play) {

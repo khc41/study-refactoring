@@ -1,8 +1,8 @@
-package study.refactoring.data;
+package study.refactoring.ch1.data;
 
-import study.refactoring.calculate.PerformanceCalculator;
+import study.refactoring.ch1.calculate.PerformanceCalculator;
 
-import static study.refactoring.calculate.PerformanceCalculator.createPerformanceCalculator;
+import static study.refactoring.ch1.calculate.PerformanceCalculator.createPerformanceCalculator;
 
 public class CreateStatementData {
 

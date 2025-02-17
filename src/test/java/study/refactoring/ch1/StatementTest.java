@@ -1,11 +1,11 @@
-package study.refactoring;
+package study.refactoring.ch1;
 
 import org.junit.jupiter.api.Test;
-import study.refactoring.data.Invoice;
-import study.refactoring.data.Performance;
-import study.refactoring.data.Play;
-import study.refactoring.data.Plays;
-import study.refactoring.render.Statement;
+import study.refactoring.ch1.data.Invoice;
+import study.refactoring.ch1.data.Performance;
+import study.refactoring.ch1.data.Play;
+import study.refactoring.ch1.data.Plays;
+import study.refactoring.ch1.render.Statement;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,15 +40,15 @@ class StatementTest {
         String result = statement.htmlStatement(invoice, plays);
         assertThat(result).isEqualTo(
                 """
-                      <h1>청구 내역 (고객명: BigCo)</h1>
-                      <table>
-                      <tr><th>연극</th><th>좌석 수</th><th>금액</th></tr>  <tr><td>Hamlet</td><td>(55석)</td><td>$650.00</td></tr>
-                        <tr><td>As You Like It</td><td>(35석)</td><td>$580.00</td></tr>
-                        <tr><td>Othello</td><td>(40석)</td><td>$500.00</td></tr>
-                      </table>
-                      <p>총액: <em>$1,730.00</em>점</p>
-                      <p>적립 포인트: <em>47</em>점</p>
-                        """);
+                        <h1>청구 내역 (고객명: BigCo)</h1>
+                        <table>
+                        <tr><th>연극</th><th>좌석 수</th><th>금액</th></tr>  <tr><td>Hamlet</td><td>(55석)</td><td>$650.00</td></tr>
+                          <tr><td>As You Like It</td><td>(35석)</td><td>$580.00</td></tr>
+                          <tr><td>Othello</td><td>(40석)</td><td>$500.00</td></tr>
+                        </table>
+                        <p>총액: <em>$1,730.00</em>점</p>
+                        <p>적립 포인트: <em>47</em>점</p>
+                          """);
     }
 
     void init() {

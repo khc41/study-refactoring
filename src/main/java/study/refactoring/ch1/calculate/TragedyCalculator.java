@@ -1,7 +1,7 @@
-package study.refactoring.calculate;
+package study.refactoring.ch1.calculate;
 
-import study.refactoring.data.Performance;
-import study.refactoring.data.Play;
+import study.refactoring.ch1.data.Performance;
+import study.refactoring.ch1.data.Play;
 
 public class TragedyCalculator extends PerformanceCalculator {
     public TragedyCalculator(Performance performance, Play play) {

@@ -1,4 +1,4 @@
-package study.refactoring.data;
+package study.refactoring.ch1.data;
 
 import java.util.Map;
 

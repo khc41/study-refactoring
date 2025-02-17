@@ -1,4 +1,5 @@
-package study.refactoring.data;
+package study.refactoring.ch1.data;
+
 
 public class PerformanceData {
     private String playID;
