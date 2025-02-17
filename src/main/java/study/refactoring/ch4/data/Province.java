@@ -18,8 +18,6 @@ public class Province {
 
         List<Map<String, Object>> producersList = (List<Map<String, Object>>) doc.get("producers");
         producersList.forEach(d -> this.addProducer(new Producer(this, d)));
-
-
     }
 
     private void addProducer(Producer arg) {
