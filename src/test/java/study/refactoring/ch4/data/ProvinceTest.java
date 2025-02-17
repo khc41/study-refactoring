@@ -1,6 +1,6 @@
 package study.refactoring.ch4.data;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -8,14 +8,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ProvinceTest {
 
+    private Province asia;
+
+    @BeforeEach
+    void init() {
+        asia = new Province(sampleProvinceData());
+    }
+
     @Test
     void testShortfall() {
-        final Province asia = new Province(sampleProvinceData());
         assertThat(asia.getShortfall()).isEqualTo(5);
+    }
+
+    @Test
+    void testProfit() {
+        assertThat(asia.getProfit()).isEqualTo(230);
     }
 
     private Map<String, Object> sampleProvinceData() {
