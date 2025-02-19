@@ -69,11 +69,10 @@ public class Producers {
 	}
 
 	public void updateProduction(int index, String production) {
-		Producer producer = this.producers.stream()
-			.filter(p -> this.producers.indexOf(p) == index)
-			.findFirst()
-			.orElseThrow(() -> new IllegalArgumentException("Producer not found"));
-		updateTotalProduction(production, producer);
+		if (index < 0 || index >= producers.size()) {
+			throw new IllegalArgumentException("Invalid producer index");
+		}
+		updateTotalProduction(production, producers.get(index));
 	}
 
 	private void updateTotalProduction(String production, Producer producer) {
