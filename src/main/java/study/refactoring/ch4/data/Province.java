@@ -5,24 +5,25 @@ import java.util.*;
 public class Province {
     private String name;
     private List<Producer> producers;
-    private int totalProduction;
+    private Producers producers1;
     private int demand;
     private int price;
 
     public Province(Map<String, Object> doc) {
         this.name = (String) doc.get("name");
+
         this.producers = new ArrayList<>();
-        this.totalProduction = 0;
         this.demand = (int) doc.get("demand");
         this.price = (int) doc.get("price");
 
         List<Map<String, Object>> producersList = (List<Map<String, Object>>) doc.get("producers");
         producersList.forEach(d -> this.addProducer(new Producer(this, d)));
+
+		this.producers1 = new Producers((List<Map<String, Object>>) doc.get("producers"));
     }
 
     private void addProducer(Producer arg) {
         this.producers.add(arg);
-        this.totalProduction += arg.getProduction();
     }
 
     public String getName() {
@@ -42,11 +43,7 @@ public class Province {
     }
 
     public int getTotalProduction() {
-        return totalProduction;
-    }
-
-    public void setTotalProduction(int totalProduction) {
-        this.totalProduction = totalProduction;
+        return producers.stream().map(Producer::getProduction).reduce(0, Integer::sum);
     }
 
     public int getDemand() {
@@ -66,7 +63,7 @@ public class Province {
     }
 
     public int getShortfall() {
-        return this.demand - this.totalProduction;
+        return this.demand - getTotalProduction();
     }
 
     public int getProfit() {
@@ -78,7 +75,7 @@ public class Province {
     }
 
     private int getSatisfiedDemand() {
-        return Math.min(this.demand, this.totalProduction);
+        return Math.min(this.demand, getTotalProduction());
     }
 
     private int getDemandCost() {
