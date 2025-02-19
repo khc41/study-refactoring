@@ -22,3 +22,8 @@
 
 ## 끝나지 않은 여정
 - 버그 리포트를 받으면 가장 먼저 그 버그를 드러내는 단위 테스트부터 작성하자.
+
+## 리팩토링
+- refactoring/chapter04 브랜치
+  - Producer와 Province 순환 종속성 제거
+  - Producers 일급 컬렉션 생성 및 연산로직 이동
