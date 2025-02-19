@@ -38,7 +38,7 @@ class ProvinceTest {
 
     @Test
     void testProvinceChangeProduction() {
-        asia.getProducers().getFirst().setProduction("20");
+        asia.getProducers().updateProduction(0, "20");
         assertThat(asia.getShortfall()).isEqualTo(-6);
         assertThat(asia.getProfit()).isEqualTo(292);
     }
