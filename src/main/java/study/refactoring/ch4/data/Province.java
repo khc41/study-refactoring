@@ -1,97 +1,71 @@
 package study.refactoring.ch4.data;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class Province {
-    private String name;
-    private List<Producer> producers;
-    private Producers producers1;
-    private int demand;
-    private int price;
+	private String name;
+	private Producers producers;
+	private int demand;
+	private int price;
 
-    public Province(Map<String, Object> doc) {
-        this.name = (String) doc.get("name");
+	public Province(Map<String, Object> doc) {
+		this.name = (String)doc.get("name");
+		this.demand = (int)doc.get("demand");
+		this.price = (int)doc.get("price");
+		this.producers = new Producers((List<Map<String, Object>>)doc.get("producers"));
+	}
 
-        this.producers = new ArrayList<>();
-        this.demand = (int) doc.get("demand");
-        this.price = (int) doc.get("price");
+	public String getName() {
+		return name;
+	}
 
-        List<Map<String, Object>> producersList = (List<Map<String, Object>>) doc.get("producers");
-        producersList.forEach(d -> this.addProducer(new Producer(d)));
+	public void setName(String name) {
+		this.name = name;
+	}
 
-		this.producers1 = new Producers((List<Map<String, Object>>) doc.get("producers"));
-    }
+	public Producers getProducers() {
+		return producers;
+	}
 
-    private void addProducer(Producer arg) {
-        this.producers.add(arg);
-    }
+	public void setProducers(List<Producer> producers) {
+		this.producers = Producers.of(producers);
+	}
 
-    public String getName() {
-        return name;
-    }
+	public int getTotalProduction() {
+		return producers.getTotalProduction();
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public int getDemand() {
+		return demand;
+	}
 
-    public List<Producer> getProducers() {
-        return Collections.unmodifiableList(producers);
-    }
+	public void setDemand(String demand) {
+		this.demand = Integer.parseInt(demand);
+	}
 
-    public void setProducers(List<Producer> producers) {
-        this.producers = producers;
-    }
+	public int getPrice() {
+		return price;
+	}
 
-    public int getTotalProduction() {
-        return producers.stream().map(Producer::getProduction).reduce(0, Integer::sum);
-    }
+	public void setPrice(String price) {
+		this.price = Integer.parseInt(price);
+	}
 
-    public int getDemand() {
-        return demand;
-    }
+	public int getShortfall() {
+		return this.demand - getTotalProduction();
+	}
 
-    public void setDemand(String demand) {
-        this.demand = Integer.parseInt(demand);
-    }
+	public int getProfit() {
+		return this.getDemandValue() - producers.getDemandCost(this.demand);
+	}
 
-    public int getPrice() {
-        return price;
-    }
+	private int getDemandValue() {
+		return this.getSatisfiedDemand() * this.price;
+	}
 
-    public void setPrice(String price) {
-        this.price = Integer.parseInt(price);
-    }
+	private int getSatisfiedDemand() {
+		return Math.min(this.demand, getTotalProduction());
+	}
 
-    public int getShortfall() {
-        return this.demand - getTotalProduction();
-    }
-
-    public int getProfit() {
-        return this.getDemandValue() - this.getDemandCost();
-    }
-
-    private int getDemandValue() {
-        return this.getSatisfiedDemand() * this.price;
-    }
-
-    private int getSatisfiedDemand() {
-        return Math.min(this.demand, getTotalProduction());
-    }
-
-    private int getDemandCost() {
-        int remainingDemand = this.demand;
-        int result = 0;
-
-        List<Producer> sortedProducers = this.producers.stream()
-                .sorted(Comparator.comparingInt(Producer::getCost))
-                .toList();
-
-        for (Producer p : sortedProducers) {
-            int contribution = Math.min(remainingDemand, p.getProduction());
-            remainingDemand -= contribution;
-            result += contribution * p.getCost();
-        }
-
-        return result;
-    }
 }
