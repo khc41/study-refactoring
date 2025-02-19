@@ -17,7 +17,7 @@ public class Province {
         this.price = (int) doc.get("price");
 
         List<Map<String, Object>> producersList = (List<Map<String, Object>>) doc.get("producers");
-        producersList.forEach(d -> this.addProducer(new Producer(this, d)));
+        producersList.forEach(d -> this.addProducer(new Producer(d)));
 
 		this.producers1 = new Producers((List<Map<String, Object>>) doc.get("producers"));
     }
