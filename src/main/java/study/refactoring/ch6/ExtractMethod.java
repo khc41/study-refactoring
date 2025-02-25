@@ -6,17 +6,18 @@ import java.util.List;
 public class ExtractMethod {
 
 	public static void printOwing(Invoice invoice) {
-		int outstanding = 0;
-
 		printBanner();
-
-		// 미해결 채무(outstanding)를 계산한다.
-		for (Order o : invoice.getOrders()) {
-			outstanding += o.getAmount();
-		}
-
+		final int outstanding = calculateOutstanding(invoice);
 		recordDueDate(invoice);
 		printDetails(invoice, outstanding);
+	}
+
+	private static int calculateOutstanding(Invoice invoice) {
+		int result = 0;
+		for (Order o : invoice.getOrders()) {
+			result += o.getAmount();
+		}
+		return result;
 	}
 
 	private static void recordDueDate(Invoice invoice) {
