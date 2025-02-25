@@ -1,6 +1,5 @@
 package study.refactoring.ch6;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,15 +15,16 @@ public class ExtractMethod {
 			outstanding += o.getAmount();
 		}
 
-		// 마감일(dueDate)을 기록한다.
-		LocalDateTime today = LocalDateTime.now();
-		invoice.setDueDate(today.plusDays(30));
-
+		recordDueDate(invoice);
 		printDetails(invoice, outstanding);
 	}
 
+	private static void recordDueDate(Invoice invoice) {
+		LocalDateTime today = LocalDateTime.now();
+		invoice.setDueDate(today.plusDays(30));
+	}
+
 	private static void printDetails(Invoice invoice, int outstanding) {
-		// 세부 사항을 출력한다.
 		System.out.printf("고객명: %s%n", invoice.getCustomer());
 		System.out.printf("채무액: %s%n", outstanding);
 		System.out.printf("마감일: %s%n", invoice.getDueDate().toLocalDate().toString());
