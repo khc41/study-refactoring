@@ -9,8 +9,8 @@ public class ChangeFunctionDeclaration {
 		return 2 * Math.PI * radius;
 	}
 
-	public static boolean inNewEngland(Customer customer) {
-		return List.of("MA", "CT", "ME", "VT", "NH", "RI").contains(customer.getAddress().getState());
+	private static boolean inNewEngland(String stateCode) {
+		return List.of("MA", "CT", "ME", "VT", "NH", "RI").contains(stateCode);
 	}
 
 	public static class Book {
