@@ -12,4 +12,10 @@ class ExtractVariableTest {
 		assertThat(ExtractVariable.price(order)).isEqualTo(9850.0);
 	}
 
+	@Test
+	void testPriceInClass() {
+		ExtractVariable.Order order = new ExtractVariable.Order(1000, 10);
+		assertThat(order.price()).isEqualTo(9850.0);
+	}
+
 }
