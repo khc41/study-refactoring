@@ -8,27 +8,71 @@ public class CombineFunctionsIntoClass {
 	private final double baseCharge = baseRate((int)aReading.get("month"), (int)aReading.get("year")) * (int)aReading.get("quantity");
 
 	public static class Client1 {
-		private final Map<String, Object> aReading = acquireReading();
-		private final double baseCharge = baseRate((int)aReading.get("month"), (int)aReading.get("year")) * (int)aReading.get("quantity");
+		private final Map<String, Object> rawReading = acquireReading();
+		private final Reading aReading = new Reading(rawReading);
+		private final double baseCharge = aReading.baseCharge();
 	}
 
 	public static class Client2 {
-		private final Map<String, Object> aReading = acquireReading();
-		private final double base = (baseRate((int)aReading.get("month"), (int)aReading.get("year")) * (int)aReading.get("quantity"));
-		private final double taxableCharge = Math.max(0, base - taxThreshold((int)aReading.get("year")));
+		private final Map<String, Object> rawReading = acquireReading();
+		private final Reading aReading = new Reading(rawReading);
+		private final double taxableCharge = aReading.taxableCharge(aReading);
 
-		private double taxThreshold(int year) {
-			return 0;
-		}
 	}
 
 	public static class Client3 {
-		private final Map<String, Object> aReading = acquireReading();
-		private final double baseChargeAmount = calculateBaseCharge(aReading);
+		private final Map<String, Object> rawReading = acquireReading();
+		private final Reading aReading = new Reading(rawReading);
+		private final double baseChargeAmount = aReading.baseCharge();
+	}
 
-		private double calculateBaseCharge(Map<String, Object> aReading) {
-			return baseRate((int)aReading.get("month"), (int)aReading.get("year")) * (int)aReading.get("quantity");
+	public static class Reading {
+		private String customer;
+		private int quantity;
+		private int month;
+		private int year;
+
+		public Reading(Map<String, Object> rawReading) {
+			this.customer = (String)rawReading.get("customer");
+			this.quantity = (int)rawReading.get("quantity");
+			this.month = (int)rawReading.get("month");
+			this.year = (int)rawReading.get("year");
 		}
+
+		public Reading(String customer, int quantity, int month, int year) {
+			this.customer = customer;
+			this.quantity = quantity;
+			this.month = month;
+			this.year = year;
+		}
+
+		public double baseCharge() {
+			return baseRate(month, year) * quantity;
+		}
+
+		public double taxableCharge(Reading aReading) {
+			return Math.max(0, aReading.baseCharge() - taxThreshold(aReading.getYear()));
+		}
+
+		public String getCustomer() {
+			return customer;
+		}
+
+		public int getQuantity() {
+			return quantity;
+		}
+
+		public int getMonth() {
+			return month;
+		}
+
+		public int getYear() {
+			return year;
+		}
+	}
+
+	public static double taxThreshold(int year) {
+		return 0;
 	}
 
 	private static double baseRate(int month, int year) {
