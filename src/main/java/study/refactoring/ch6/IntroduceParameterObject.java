@@ -4,9 +4,31 @@ import java.util.List;
 
 public class IntroduceParameterObject {
 
-	public static boolean readingsOutsideRange(Station station, int min, int max) {
+	public static boolean readingsOutsideRange(Station station, NumberRange range) {
 		return station.getRecodings().stream()
-			.anyMatch(r -> r.getTemp() < min || r.getTemp() > max);
+			.anyMatch(r -> !range.contains(r.getTemp()));
+	}
+
+	public static class NumberRange {
+		private int min;
+		private int max;
+
+		public NumberRange(int min, int max) {
+			this.min = min;
+			this.max = max;
+		}
+
+		public boolean contains(int arg) {
+			return (arg >= min && arg <= max);
+		}
+
+		public int getMin() {
+			return min;
+		}
+
+		public int getMax() {
+			return max;
+		}
 	}
 
 	public static class Station {

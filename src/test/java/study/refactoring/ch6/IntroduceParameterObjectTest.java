@@ -2,6 +2,7 @@ package study.refactoring.ch6;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static study.refactoring.ch6.IntroduceParameterObject.*;
 import static study.refactoring.ch6.IntroduceParameterObject.Recoding;
 import static study.refactoring.ch6.IntroduceParameterObject.Station;
 
@@ -21,8 +22,8 @@ class IntroduceParameterObjectTest {
 		Station station = new Station("test", recodings);
 
 		assertAll(
-			() -> assertThat(IntroduceParameterObject.readingsOutsideRange(station, 48, 57)).isTrue(),
-			() -> assertThat(IntroduceParameterObject.readingsOutsideRange(station, 46, 59)).isFalse()
+			() -> assertThat(readingsOutsideRange(station, new NumberRange(48, 57))).isTrue(),
+			() -> assertThat(readingsOutsideRange(station, new NumberRange(46, 59))).isFalse()
 		);
 
 	}
