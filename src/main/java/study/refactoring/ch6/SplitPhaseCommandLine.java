@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-public class SplitPhase1 {
+public class SplitPhaseCommandLine {
 
     public static void main(String[] args) {
         try {
