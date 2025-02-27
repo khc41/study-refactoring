@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CombineFunctionsIntoClass {
-	private final Map<String, Object> aReading = acquireReading();
-	private final double baseCharge = baseRate((int)aReading.get("month"), (int)aReading.get("year")) * (int)aReading.get("quantity");
-
 	public static class Client1 {
+
 		private final Map<String, Object> rawReading = acquireReading();
 		private final Reading aReading = new Reading(rawReading);
 		private final double baseCharge = aReading.baseCharge();
