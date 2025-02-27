@@ -4,8 +4,7 @@ public class SplitPhase {
 
     public static int priceOrder(Product product, int quantity, ShippingMethod shippingMethod) {
         final PriceData priceData = calculatePricingData(product, quantity);
-        final int price = applyShipping(priceData, shippingMethod);
-        return price;
+        return applyShipping(priceData, shippingMethod);
     }
 
     public static PriceData calculatePricingData(Product product, int quantity) {
@@ -19,8 +18,7 @@ public class SplitPhase {
         final int shippingPerCase = (priceData.getBasePrice() > shippingMethod.getDiscountThreshold())
                 ? shippingMethod.getDiscountedFee() : shippingMethod.getFeePerCase();
         final int shippingCost = priceData.getQuantity() * shippingPerCase;
-        final int price = priceData.getBasePrice() - priceData.getDiscount() + shippingCost;
-        return price;
+        return priceData.getBasePrice() - priceData.getDiscount() + shippingCost;
     }
 
     public static class PriceData {
