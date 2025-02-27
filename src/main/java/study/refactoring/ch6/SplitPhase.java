@@ -3,12 +3,16 @@ package study.refactoring.ch6;
 public class SplitPhase {
 
     public static int priceOrder(Product product, int quantity, ShippingMethod shippingMethod) {
+        final PriceData priceData = calculatePricingData(product, quantity);
+        final int price = applyShipping(priceData, shippingMethod);
+        return price;
+    }
+
+    public static PriceData calculatePricingData(Product product, int quantity) {
         final int basePrice = product.getBasePrice() * quantity;
         final int discount = (int) (Math.max(quantity - product.getDiscountThreshold(), 0)
                 * product.getBasePrice() * product.getDiscountRate());
-        final PriceData priceData = new PriceData(basePrice, quantity, discount);
-        final int price = applyShipping(priceData, shippingMethod);
-        return price;
+        return new PriceData(basePrice, quantity, discount);
     }
 
     public static int applyShipping(PriceData priceData, ShippingMethod shippingMethod) {
@@ -20,9 +24,9 @@ public class SplitPhase {
     }
 
     public static class PriceData {
-       private final int basePrice;
-       private final int quantity;
-       private final int discount;
+        private final int basePrice;
+        private final int quantity;
+        private final int discount;
 
         public PriceData(int basePrice, int quantity, int discount) {
             this.basePrice = basePrice;
