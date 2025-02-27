@@ -5,7 +5,13 @@ public class SplitPhase {
     public static int priceOrder(Product product, int quantity, ShippingMethod shippingMethod) {
         final int basePrice = product.getBasePrice() * quantity;
         final int discount = (int) (Math.max(quantity - product.getDiscountThreshold(), 0)
-                        * product.getBasePrice() * product.getDiscountRate());
+                * product.getBasePrice() * product.getDiscountRate());
+
+        final int price = applyShipping(basePrice, shippingMethod, quantity, discount);
+        return price;
+    }
+
+    public static int applyShipping(int basePrice, ShippingMethod shippingMethod, int quantity, int discount) {
         final int shippingPerCase = (basePrice > shippingMethod.getDiscountThreshold())
                 ? shippingMethod.getDiscountedFee() : shippingMethod.getFeePerCase();
         final int shippingCost = quantity * shippingPerCase;
