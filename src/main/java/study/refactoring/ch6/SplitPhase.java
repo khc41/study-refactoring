@@ -6,24 +6,36 @@ public class SplitPhase {
         final int basePrice = product.getBasePrice() * quantity;
         final int discount = (int) (Math.max(quantity - product.getDiscountThreshold(), 0)
                 * product.getBasePrice() * product.getDiscountRate());
-        final PriceData priceData = new PriceData(basePrice);
-        final int price = applyShipping(priceData, shippingMethod, quantity, discount);
+        final PriceData priceData = new PriceData(basePrice, quantity, discount);
+        final int price = applyShipping(priceData, shippingMethod);
         return price;
     }
 
-    public static int applyShipping(PriceData priceData, ShippingMethod shippingMethod, int quantity, int discount) {
+    public static int applyShipping(PriceData priceData, ShippingMethod shippingMethod) {
         final int shippingPerCase = (priceData.getBasePrice() > shippingMethod.getDiscountThreshold())
                 ? shippingMethod.getDiscountedFee() : shippingMethod.getFeePerCase();
-        final int shippingCost = quantity * shippingPerCase;
-        final int price = priceData.getBasePrice() - discount + shippingCost;
+        final int shippingCost = priceData.getQuantity() * shippingPerCase;
+        final int price = priceData.getBasePrice() - priceData.getDiscount() + shippingCost;
         return price;
     }
 
     public static class PriceData {
        private final int basePrice;
+       private final int quantity;
+       private final int discount;
 
-        public PriceData(int basePrice) {
+        public PriceData(int basePrice, int quantity, int discount) {
             this.basePrice = basePrice;
+            this.quantity = quantity;
+            this.discount = discount;
+        }
+
+        public int getDiscount() {
+            return discount;
+        }
+
+        public int getQuantity() {
+            return quantity;
         }
 
         public int getBasePrice() {
