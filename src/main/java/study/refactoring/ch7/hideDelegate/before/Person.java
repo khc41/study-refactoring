@@ -12,8 +12,6 @@ public class Person {
         return this.department;
     }
 
-    ;
-
     public void setDepartment(Department department) {
         this.department = department;
     }
