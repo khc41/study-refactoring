@@ -6,3 +6,4 @@
 ### [chapter 4. 테스트 구축하기](docs/chapter4.md)
 ### [chapter 6. 기본적인 리팩토링](docs/chapter6.md)
 ### [chapter 7. 캡슐화](docs/chapter7.md)
+### [chapter 8. 기능 이동](docs/chapter8.md)
