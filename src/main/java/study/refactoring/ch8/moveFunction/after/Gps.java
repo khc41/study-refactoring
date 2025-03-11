@@ -7,11 +7,10 @@ public class Gps {
 
 	public Map<String, Object> trackSummary(List<Point> points) {
 		final double totalTime = calculateTime();
-		final double totalDistance = totalDistance(points);
-		final double pace = totalTime / 60 / totalDistance;
+        final double pace = totalTime / 60 / totalDistance(points);
 		return Map.of(
 			"time", totalTime,
-			"distance", totalDistance,
+			"distance", totalDistance(points),
 			"pace", pace
 		);
 	}
