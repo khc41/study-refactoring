@@ -67,6 +67,8 @@
    - 더 나은 이름이 있다면 그 이름을 쓴다.
 
 ## 4. 문장을 호출한 곳으로 옮기기
+> [예시 코드 (Render) - before ](/src/main/java/study/refactoring/ch8/movestatementsToCallers/before/Render.java) <br>
+> [예시 코드 (Render) - after ](/src/main/java/study/refactoring/ch8/movestatementsToCallers/after/Render.java) <br>
 - 여러 곳에서 사용하던 기능이 일부 호출자에게는 다르게 동작하도록 바뀌어야 한다면 달라진 동작을 함수에서 꺼내 해당 호출자로 옮겨야한다.
 
 ### 절차
