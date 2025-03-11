@@ -1,4 +1,14 @@
 ## 1. 함수 옮기기
+> ### 중첩 함수를 최상위로 옮기기
+> [예시 코드 (Gps) - before ](/src/main/java/study/refactoring/ch8/moveFunction/before/Gps.java) <br>
+> [예시 코드 (Point) - before ](/src/main/java/study/refactoring/ch8/moveFunction/before/Point.java) <br>
+> [예시 코드 (Gps) - after ](/src/main/java/study/refactoring/ch8/moveFunction/after/Gps.java) <br>
+> [예시 코드 (Point) - after ](/src/main/java/study/refactoring/ch8/moveFunction/after/Point.java) <br>
+> ### 다른 클래스로 옮기기
+> [예시 코드 (Account) - before](/src/main/java/study/refactoring/ch8/moveFunction/before/Account.java) <br>
+> [예시 코드 (AccountType) - before](/src/main/java/study/refactoring/ch8/moveFunction/before/AccountType.java) <br>
+> [예시 코드 (Account) - after](/src/main/java/study/refactoring/ch8/moveFunction/after/Account.java) <br>
+> [예시 코드 (AccountType) - after](/src/main/java/study/refactoring/ch8/moveFunction/after/AccountType.java) <br>
 - 좋은 소프트웨어 설계의 핵심은 모듈화가 얼마나 잘 되어 있느냐를 뜻하는 모듈성이다.
 - 이는 프로그램의 어딘가를 수정하려 할 때 해당 기능과 깊이 관련된 작은 일부만 이해해도 가능하게 해주는 능력이다.
 - 객체 지향 프로그래밍의 핵심 모듈화 컨텍스트는 클래스다.
@@ -19,6 +29,30 @@
 7. 테스트한다.
 8. 소스 함수를 인라인할지 고민해본다.
     - 소스 함수는 언제까지라도 위임 함수로 남겨둘 수 있다. 하지만 소스 함수를 호출하는 곳에서 타깃 함수를 직접 호출하는 데 무리가 없다면 중간 단계(소스 함수)는 제거하는 편이 낫다.
+
+## 2. 필드 옮기기
+> [예시 코드 (Customer) - before ](/src/main/java/study/refactoring/ch8/moveField/before/Customer.java) <br>
+> [예시 코드 (CustomerContract) - before ](/src/main/java/study/refactoring/ch8/moveField/before/CustomerContract.java) <br>
+> [예시 코드 (Customer) - after ](/src/main/java/study/refactoring/ch8/moveField/after/Customer.java) <br>
+> [예시 코드 (CustomerContract) - after ](/src/main/java/study/refactoring/ch8/moveField/after/CustomerContract.java) <br>
+- 주어진 문제에 적합한 데이터구조를 활용하면 동작 코드는 자연스럽게 단순하고 직관적으로 짜여진다.
+- 현재 데이터 구조가 적절치 않음을 깨닫게 되면 곧바로 수정해야 한다.
+
+### 절차
+1. 소스 필드가 캡슐화되어 있지 않다면 캡슐화한다.
+2. 테스트한다.
+3. 타깃 객체에 필드 (와 접근자 메서드들)를 생성한다.
+4. 정적 검사를 수행한다.
+5. 소스 객체에서 타깃 객체를 참조할 수 있는지 확인한다.
+   - 기존 필드나 메서드 중 타깃 객체를 넘겨주는 게 있을지 모른다. 없다면 이런 기능의 메서드를 쉽게 만들 수 있는지 살펴본다. 간단치 않다면 타깃 객체를 저장할 새 필드를 소스 객체에 생성하자. 
+   이는 영구적인 변경이 되겠지만, 더 넓은 맥락에서 리팩터링을 충분히 하고 나면 다시 없앨 수 있을 때도 있다.
+6. 접근자들이 타깃 필드를 사용하도록 수정한다.
+   - 여러 소스에서 같은 타깃을 공유한다면, 먼저 세터를 수정하여 타깃 필드와 소스 필드 모두를 갱신하게 하고, 이어서 일관성을 깨뜨리는 갱신을 검출할 수 있도록 어서션을 추가하자. 모든 게 잘 마무리되었다면 접근자들이 타깃 필드를 사용하도록 수정한다.
+7. 테스트한다.
+8. 소스 필드를 제거한다.
+9. 테스트한다.
+
+
 
 
 
