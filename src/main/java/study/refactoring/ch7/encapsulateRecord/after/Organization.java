@@ -1,4 +1,4 @@
-package study.refactoring.ch7.encapsulaterecord.after;
+package study.refactoring.ch7.encapsulateRecord.after;
 
 public class Organization {
 

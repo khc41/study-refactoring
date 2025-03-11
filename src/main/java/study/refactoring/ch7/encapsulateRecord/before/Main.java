@@ -1,4 +1,4 @@
-package study.refactoring.ch7.encapsulaterecord.before;
+package study.refactoring.ch7.encapsulateRecord.before;
 
 import java.util.HashMap;
 import java.util.Map;

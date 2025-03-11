@@ -1,4 +1,7 @@
 ## 1. 레코드 캡슐화하기
+> [예시 코드 (Main) - before](/src/main/java/study/refactoring/ch7/encapsulateRecord/before/Main.java)<br>
+> [예시 코드 (Main) - after](/src/main/java/study/refactoring/ch7/encapsulateRecord/after/Main.java)<br>
+> [예시 코드 (Organization) - after](/src/main/java/study/refactoring/ch7/encapsulateRecord/after/Organization.java)
 - 객체를 사용하면 사용자는 무엇이 저장된 값이고 무엇이 계산된 값인지 알 필요가 없다.
 
 ### 절차
@@ -16,6 +19,10 @@
 - 데이터 구조가 클수록 복제 비용이 커져서 성능이 느려질 수 있는데, 실제로 측정해보는게 좋다.
 
 ## 2. 컬렉션 캡슐화하기
+> [예시 코드 (Course) - before](/src/main/java/study/refactoring/ch7/encapsulateCollection/before/Course.java)<br>
+> [예시 코드 (Person) - before](/src/main/java/study/refactoring/ch7/encapsulateCollection/before/Person.java)<br>
+> [예시 코드 (Course) - after](/src/main/java/study/refactoring/ch7/encapsulateCollection/after/Course.java)<br>
+> [예시 코드 (Person) - after](/src/main/java/study/refactoring/ch7/encapsulateCollection/after/Person.java)
 - 가변 데이터를 모두 캡슐화하는 편인데 데이터 구조가 언제 어떻게 수정되는지 파악하기 쉬워 필요한 시점에 데이터 구조를 변경하기도 쉬워진다.
 - 컬렉션을 캡슐화하면서 게터가 컬렉션 자체를 반환하면 컬렉션 원소들이 바뀔 수 있으므로, add(), remove() 이름의 컬렉션 변경자 메서드를 만든다.
 - 컬렉션 게터를 제공하되 복제본을 반환하는 방식이 가장 흔하다.
@@ -28,6 +35,11 @@
 5. 컬렉션 게터를 수정해서 원본 내용을 수정할 수 없는 읽기전용 프락시나 복제본을 반환하게 한다.
 
 ## 3. 기본형을 객체로 바꾸기
+> [예시 코드 (Main) - before](/src/main/java/study/refactoring/ch7/replacePrimitiveWithObject/before/Main.java)<br>
+> [예시 코드 (Order) - before](/src/main/java/study/refactoring/ch7/replacePrimitiveWithObject/before/Order.java)<br>
+> [예시 코드 (Main) - after](/src/main/java/study/refactoring/ch7/replacePrimitiveWithObject/after/Main.java)<br>
+> [예시 코드 (Order) - after](/src/main/java/study/refactoring/ch7/replacePrimitiveWithObject/after/Order.java)<br>
+> [예시 코드 (Priority) - after](/src/main/java/study/refactoring/ch7/replacePrimitiveWithObject/after/Priority.java)
 - 단순한 출력 이상의 기능이 필요해지는 순간 그 데이터를 표현하는 전용 클래스를 정의하면 좋다.
 
 ### 절차
@@ -40,6 +52,10 @@
 7. 함수 이름을 바꾸면 원본 접근자의 동작을 더 잘 드러낼 수 있는지 검토한다.
 
 ## 4. 임시 변수를 질의 함수로 바꾸기
+> [예시 코드 (Item) - before](/src/main/java/study/refactoring/ch7/replaceTempWithQuery/before/Item.java)<br>
+> [예시 코드 (Order) - before](/src/main/java/study/refactoring/ch7/replaceTempWithQuery/before/Order.java)<br>
+> [예시 코드 (Item) - after](/src/main/java/study/refactoring/ch7/replaceTempWithQuery/after/Item.java)<br>
+> [예시 코드 (Order) - after](/src/main/java/study/refactoring/ch7/replaceTempWithQuery/after/Order.java)<br>
 - 임시 변수를 사용하는 것보다 함수를 만들어 사용하는 편이 나을 때가 많다.
 - 변수를 각각의 함수로 만들면 추출한 함수에 변수를 따로 전달할 필요가 없고, 원래 함수의 경계가 분명해져 부자연스러운 의존 관계나 부수효과를 찾고 제거하는 데 도움이 된다.
 - 클래스 안에서 적용할 때 효과가 가장 크다.
@@ -54,6 +70,9 @@
 6. 변수 인라인하기로 임시변수를 제거한다.
 
 ## 5. 클래스 추출하기
+> [예시 코드 (Person) - before](/src/main/java/study/refactoring/ch7/extractClass/before/Person.java)<br>
+> [예시 코드 (Person) - after](/src/main/java/study/refactoring/ch7/extractClass/after/Person.java)<br>
+> [예시 코드 (TelephoneNumber) - after](/src/main/java/study/refactoring/ch7/extractClass/after/TelephoneNumber.java)<br>
 - 일부 데이터와 메서드를 따로 묶을 수 잇다면 어서 분리하라는 신호다.
 - 함께 변경되는 일이 많거나 서로 의존하는 데이터들도 분리한다.
 - 작은 일부의 기능만을 위해 서브클래스를 만들거나, 확장해야 할 기능이 무엇이냐에 따라 서브클래스를 만드는 방식도 달라진다면 클래스를 나눠야 한다는 신호다.
@@ -69,6 +88,9 @@
 7. 새 클래스를 외부로 노출할지 정한다. 노출하려거든  새 클래스에 참조를 값으로 바꾸기를 적용할 지 고민해본다.
 
 ## 6. 클래스 인라인하기
+> [예시 코드 (Shipment) - before](/src/main/java/study/refactoring/ch7/inlineClass/before/Shipment.java)<br>
+> [예시 코드 (TrackingInformation) - before](/src/main/java/study/refactoring/ch7/inlineClass/before/TrackingInformation.java)<br>
+> [예시 코드 (Shipment) - after](/src/main/java/study/refactoring/ch7/inlineClass/after/Shipment.java)<br>
 - 클래스 추출하기를 거꾸로 돌리는 리팩터링
 - 역할을 옮기는 리팩터링을 하고나니 특정 클래스에 남은 역할이 거의 없을 때 자주 생긴다.
 - 두 클래스의 기능을 지금과 다르게 배분하고 싶을 때도 클래스를 인라인한다.
@@ -80,6 +102,10 @@
 4. 소스 클래스를 삭제하고 조의를 표한다.
 
 ## 7. 위임 숨기기
+> [예시 코드 (Person) - before](/src/main/java/study/refactoring/ch7/hideDelegate/before/Person.java)<br>
+> [예시 코드 (Department) - before](/src/main/java/study/refactoring/ch7/hideDelegate/before/Department.java)<br>
+> [예시 코드 (Person) - after](/src/main/java/study/refactoring/ch7/hideDelegate/after/Person.java)<br>
+> [예시 코드 (Department) - after](/src/main/java/study/refactoring/ch7/hideDelegate/after/Department.java)<br>
 - 모듈화 설계를 제대로 하는 핵심은 캡슐화다.
 - 캡슐화가 잘 되어 있다면 무언가를 변경해야 할 때 함께 고려해야 할 모듈 수가 적어져서 코드를 변경하기가 훨씬 쉬워진다.
 
