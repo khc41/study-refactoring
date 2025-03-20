@@ -1,4 +1,6 @@
 ## 1. 변수 쪼개기
+> [예시 코드 (Haggis) - before ](/src/main/java/study/refactoring/ch9/splitValiable/before/Haggis.java) <br>
+> [예시 코드 (Haggis) - after ](/src/main/java/study/refactoring/ch9/splitValiable/after/Haggis.java) <br>
 - 여러 용도로 쓰인 변수는 코드를 읽는 이에게 혼란을 주므로, 역할이 둘 이상인 변수가 있다면 쪼개야 한다.
 
 ### 절차
@@ -22,6 +24,8 @@
 6. 접근자들의 이름도 바꿔준다.
 
 ## 3. 파생 변수를 질의 함수로 바꾸기
+> [예시 코드 (ProductionPlan) - before ](/src/main/java/study/refactoring/ch9/replaceDerivedVariableWithQuery/before/ProductionPlan.java) <br>
+> [예시 코드 (ProductionPlan) - after ](/src/main/java/study/refactoring/ch9/replaceDerivedVariableWithQuery/after/ProductionPlan.java) <br>
 - 가변 데이터는 수정한 값의 연쇄효과를 일으켜 원인을 찾기 어려운 문제를 야기해 유효 범위를 가능한 한 좁혀야 한다.
 - 값을 쉽게 계산해낼 수 있는 변수들을 모두 제거하면, 데이터의 의미를 더 분명히 드러내고 결과 변수에 변경된 값을 반영하지 않는 실수를 막아준다.
 - 새로운 데이터 구조를 생성하는 변형 연산이라면 계산 코드로 대체할 수 있더라도 그대로 두는 것이 좋다.
@@ -37,6 +41,8 @@
 7. 변수를 선언하고 갱신하는 코드를 죽은 코드 제거하기로 없앤다.
 
 ## 4. 참조를 값으로 바꾸기
+> [예시 코드 (Person) - before ](/src/main/java/study/refactoring/ch9/changeReferenceToValue/before/Person.java) <br>
+> [예시 코드 (Person) - after ](/src/main/java/study/refactoring/ch9/changeReferenceToValue/after/Person.java) <br>
 - 값 객체는 불변이므로 분산 시스템과 동시성 시스템에서 특히 유용하다.
 
 ### 절차
@@ -51,6 +57,15 @@
 1. 같은 부류에 속하는 객체들을 보관할 저장소를 만든다.(이미 있다면 생략)
 2. 생성자에서 이 부류의 객체들 중 특정 객체를 정확히 찾아내는 방법이 있는지 확인한다.
 3. 호스트 객체의 생성자들을 수정하여 필요한 객체를 이 저장소에서 찾도록 한다. 하나 수정할 때마다 테스트한다.
+
+## 6. 매직 리터럴 바꾸기
+- 코드를 읽는 사람이 의미를 모른다면 숫자 자체로는 의미를 명확하게 알려주지 못하므로 상수를 정의하고 숫자 대신 상수를 사용하도록 바꾸면 된다.
+
+### 방법
+1. 상수를 선언하고 매직 리터럴을 대입한다.
+2. 해당 리터럴이 사용되는 곳을 모두 찾는다.
+3. 찾은 곳 각각에서 리터럴이 새 상수와 똑같은 의미로 쓰였는지 확인하여, 같은 의미라면 상수로 대체한 후 테스트한다.
+
 
 ## 느낀점 
 - 동치성 비교 메서드를 오버라이드할 때는 보통 해시코드 생성 메서드도 오버라이드해야한다라는 부분을 읽으면서 코드 리뷰를 받을 때 왜 해시코드 메서드도 같이 구현해야 하는지에 대해 리뷰를 받은 적이 있었는데, 그때 찾아본 바로는 해시 컬렉션을 사용할 때의 동치성을 보장해주기 위해서였다. 
