@@ -8,6 +8,8 @@
 1. 조건식과 그 조건식에 딸린 조건절을 각각의 함수로 추출한다.
 
 ## 2. 조건식 통합하기
+> [예시 코드 (Amount) - before ](/src/main/java/study/refactoring/ch10/consolidateConditionalExpression/before/Amount.java) <br>
+> [예시 코드 (Amount) - after ](/src/main/java/study/refactoring/ch10/consolidateConditionalExpression/after/Amount.java) <br>
 - 비교하는 조건은 다르지만 그 결과로 수행하는 동작이 같으면 하나로 통합하는 게 낫다.
 - 통합하면 하려는 일이 명확해지고, 함수 추출하기까지 이어질 가능성이 높아진다.
 
@@ -19,3 +21,4 @@
 3. 테스트한다.
 4. 조건이 하나만 남을 때까지 2~3 과정을 반복한다.
 5. 하나로 합쳐진 조건식을 함수로 추출할지 고려해본다.
+
